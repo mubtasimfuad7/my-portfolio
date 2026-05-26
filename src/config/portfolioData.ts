@@ -135,7 +135,7 @@ export const experiences: Experience[] = [
     id: "exp1",
     role: "B.Sc. in Computer Science & Engineering (CSE)",
     company: "North South University",
-    period: "2023 - Present",
+    period: "2021 - 2026",
     description: [
       "Studying in Dhaka, Bangladesh, pursuing a Bachelor of Science degree in CSE.",
       "Acquiring advanced skills in Software Engineering, Database Systems, Algorithms, and Object-Oriented Programming.",
@@ -146,7 +146,7 @@ export const experiences: Experience[] = [
     id: "exp2",
     role: "Higher Secondary School Certificate (HSC)",
     company: "Science Group",
-    period: "2020 - 2022",
+    period: "2017 - 2019",
     description: [
       "Completed Higher Secondary Certificate with a focus on Mathematics, Physics, Chemistry, and ICT.",
       "Developed deep problem-solving skills and academic excellence in sciences."
@@ -156,7 +156,7 @@ export const experiences: Experience[] = [
     id: "exp3",
     role: "Secondary School Certificate (SSC)",
     company: "Science Group",
-    period: "2018 - 2020",
+    period: "2015 - 2017",
     description: [
       "Completed Secondary School Certificate in Science group with outstanding results.",
       "Learned basic computing principles, math, and introductory logical problem-solving."

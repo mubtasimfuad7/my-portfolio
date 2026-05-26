@@ -55,8 +55,8 @@ export const Experience: React.FC = () => {
     <section id="experience" ref={sectionRef} className="experience-section">
       <div className="container">
         <div className="section-header">
-          <span className="section-subtitle">My Career Road</span>
-          <h2 className="section-title">Experience Timeline</h2>
+          <span className="section-subtitle">My Learning Journey</span>
+          <h2 className="section-title">Education & Milestones</h2>
         </div>
 
         <div className="timeline-container">

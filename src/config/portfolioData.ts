@@ -133,24 +133,24 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: "exp1",
-    role: "Senior Software Engineer",
-    company: "Apex Digital Solutions",
-    period: "2024 - Present",
+    role: "Self-Taught Full-Stack Developer",
+    company: "Coding Projects & Open Source",
+    period: "2023 - Present",
     description: [
-      "Led architectural migration of legacy systems to Vite-based React frameworks, boosting performance scores by 40%.",
-      "Architected clean REST and GraphQL servers supporting over 100k daily active users.",
-      "Mentored junior developers on UI/UX standards, modern React hooks, and performance-first CSS standards."
+      "Built 20+ responsive web applications utilizing React, TypeScript, and Node.js to solve real-world problems.",
+      "Self-studied advanced backend principles, including database design, API security, and deployment pipelines.",
+      "Participated in developer communities and open-source contributions on GitHub."
     ]
   },
   {
     id: "exp2",
-    role: "Full-Stack Developer",
-    company: "Nebula Tech Labs",
-    period: "2022 - 2024",
+    role: "Computer Science & Engineering Student",
+    company: "Academic & Practical Studies",
+    period: "2020 - 2024",
     description: [
-      "Engineered responsive components using highly modular vanilla CSS grids and responsive layouts.",
-      "Integrated secure authentication protocols, multiple payment gateways, and background cron services.",
-      "Built custom analytical dashboard frameworks showcasing clean animations and optimized database lookups."
+      "Acquired a solid foundation in core concepts: Data Structures, Algorithms, OOP, and Database Systems.",
+      "Developed several academic group projects, learning teamwork, git workflows, and system design.",
+      "Participated in coding contests and workshops to continuously challenge myself."
     ]
   }
 ];

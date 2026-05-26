@@ -133,24 +133,33 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: "exp1",
-    role: "Self-Taught Full-Stack Developer",
-    company: "Coding Projects & Open Source",
+    role: "B.Sc. in Computer Science & Engineering (CSE)",
+    company: "North South University",
     period: "2023 - Present",
     description: [
-      "Built 20+ responsive web applications utilizing React, TypeScript, and Node.js to solve real-world problems.",
-      "Self-studied advanced backend principles, including database design, API security, and deployment pipelines.",
-      "Participated in developer communities and open-source contributions on GitHub."
+      "Studying in Dhaka, Bangladesh, pursuing a Bachelor of Science degree in CSE.",
+      "Acquiring advanced skills in Software Engineering, Database Systems, Algorithms, and Object-Oriented Programming.",
+      "Participating in university programming labs and building collaborative web projects."
     ]
   },
   {
     id: "exp2",
-    role: "Computer Science & Engineering Student",
-    company: "Academic & Practical Studies",
-    period: "2020 - 2024",
+    role: "Higher Secondary School Certificate (HSC)",
+    company: "Science Group",
+    period: "2020 - 2022",
     description: [
-      "Acquired a solid foundation in core concepts: Data Structures, Algorithms, OOP, and Database Systems.",
-      "Developed several academic group projects, learning teamwork, git workflows, and system design.",
-      "Participated in coding contests and workshops to continuously challenge myself."
+      "Completed Higher Secondary Certificate with a focus on Mathematics, Physics, Chemistry, and ICT.",
+      "Developed deep problem-solving skills and academic excellence in sciences."
+    ]
+  },
+  {
+    id: "exp3",
+    role: "Secondary School Certificate (SSC)",
+    company: "Science Group",
+    period: "2018 - 2020",
+    description: [
+      "Completed Secondary School Certificate in Science group with outstanding results.",
+      "Learned basic computing principles, math, and introductory logical problem-solving."
     ]
   }
 ];

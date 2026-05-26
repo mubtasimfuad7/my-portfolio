@@ -1,0 +1,54 @@
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-cyan);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, background-color 0.3s ease;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--accent-purple);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.2);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Hovering state */
+.custom-cursor-dot.hovered {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.custom-cursor-ring.hovered {
+  width: 52px;
+  height: 52px;
+  border-color: var(--accent-cyan);
+  background-color: rgba(0, 242, 254, 0.08);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+/* Clicking state */
+.custom-cursor-dot.clicking {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.custom-cursor-ring.clicking {
+  width: 24px;
+  height: 24px;
+  background-color: rgba(157, 78, 221, 0.15);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 8px rgba(157, 78, 221, 0.5);
+}

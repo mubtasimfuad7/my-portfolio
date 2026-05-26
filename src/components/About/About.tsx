@@ -69,26 +69,7 @@ export const About: React.FC = () => {
         </div>
 
         <div className="about-grid">
-          {/* Left Column: Premium visual profile avatar placeholder card */}
-          <div className={`about-visual-col reveal-on-scroll ${isVisible ? 'revealed' : ''}`}>
-            <div className="profile-card-wrapper glow-border-trigger">
-              <div className="profile-card glass-panel">
-                <div className="avatar-placeholder">
-                  {/* Decorative glowing graphic since we are build-independent */}
-                  <div className="graphic-orbit"></div>
-                  <div className="graphic-core">
-                    <span>{personalInfo.name[0]}</span>
-                  </div>
-                </div>
-                <div className="profile-card-info">
-                  <h4>{personalInfo.name}</h4>
-                  <p>{personalInfo.location}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Bio & Counters */}
+          {/* Left Column: Bio & Counters */}
           <div className={`about-text-col reveal-on-scroll ${isVisible ? 'revealed' : ''}`}>
             <h3 className="about-tagline">
               Bridge the gap between <span className="gradient-text">Design & Engineering</span>
@@ -111,6 +92,25 @@ export const About: React.FC = () => {
                   isVisible={isVisible}
                 />
               ))}
+            </div>
+          </div>
+
+          {/* Right Column: Premium visual profile avatar placeholder card */}
+          <div className={`about-visual-col reveal-on-scroll ${isVisible ? 'revealed' : ''}`}>
+            <div className="profile-card-wrapper glow-border-trigger">
+              <div className="profile-card glass-panel">
+                <div className="avatar-placeholder">
+                  {/* Decorative glowing graphic since we are build-independent */}
+                  <div className="graphic-orbit"></div>
+                  <div className="graphic-core">
+                    <span>{personalInfo.name[0]}</span>
+                  </div>
+                </div>
+                <div className="profile-card-info">
+                  <h4>{personalInfo.name}</h4>
+                  <p>{personalInfo.location}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

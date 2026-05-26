@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
           © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
         </p>
         <p className="footer-built">
-          Designed & Built with <span className="footer-heart">♥</span> by {personalInfo.name}
+          Designed & Engineered by mubtasim fuad
         </p>
       </div>
     </footer>

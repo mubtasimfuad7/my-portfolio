@@ -36,15 +36,15 @@ export interface Metric {
 }
 
 export const personalInfo = {
-  name: "Fuad",
+  name: "Mubtasim Fuad",
   title: "Creative Full-Stack Developer",
   tagline: "Building high-performance, visually stunning web applications with pixel-perfect precision.",
   bio: "I am a passionate software engineer specializing in crafting premium digital experiences. By bridging the gap between elegant UI design and robust backend architecture, I build applications that not only perform exceptionally but also look and feel beautiful.",
   location: "Dhaka, Bangladesh",
-  email: "fuad@example.com",
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  twitter: "https://twitter.com",
+  email: "mubtasimfuad7@gmail.com",
+  github: "https://github.com/mubtasimfuad7",
+  linkedin: "https://linkedin.com/in/mubtasimfuad7",
+  twitter: "https://twitter.com/mubtasimfuad7",
   resumeUrl: "#", // Add link to your PDF resume here
 };
 

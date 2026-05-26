@@ -7,144 +7,132 @@ export const InteractiveCanvas: React.FC = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animId: number;
     let particles: Particle[] = [];
-    const mouse = { x: null as number | null, y: null as number | null, radius: 150 };
+    const mouse = { x: -9999, y: -9999, radius: 130 };
 
-    // Setup canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
+    // ── throttled mouse move ──────────────────────────
+    let mouseThrottle = 0;
+    const onMouseMove = (e: MouseEvent) => {
+      const now = performance.now();
+      if (now - mouseThrottle < 16) return; // cap at ~60fps
+      mouseThrottle = now;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+
+    // ── debounced resize ─────────────────────────────
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+      }, 150);
     };
 
+    // ── Particle class ───────────────────────────────
     class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
+      x: number; y: number;
+      vx: number; vy: number;
       size: number;
-      
+      baseX: number; baseY: number;
+
       constructor() {
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.size = Math.random() * 2 + 1;
+        this.x = this.baseX = Math.random() * canvas!.width;
+        this.y = this.baseY = Math.random() * canvas!.height;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.size = Math.random() * 1.6 + 0.6;
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Bounce on boundaries
-        if (this.x < 0 || this.x > canvas!.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas!.height) this.vy *= -1;
+        // Soft boundary bounce
+        if (this.x < 0 || this.x > canvas!.width)  this.vx *= -1;
+        if (this.y < 0 || this.y > canvas!.height)  this.vy *= -1;
 
-        // Interaction with mouse pointer
-        if (mouse.x !== null && mouse.y !== null) {
-          const dx = this.x - mouse.x;
-          const dy = this.y - mouse.y;
-          const distance = Math.hypot(dx, dy);
-
-          if (distance < mouse.radius) {
-            // Light force pulling nodes slightly closer or pushing away
-            const force = (mouse.radius - distance) / mouse.radius;
-            this.x += (dx / distance) * force * 1.5;
-            this.y += (dy / distance) * force * 1.5;
-          }
+        // Mouse repulsion
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < mouse.radius && dist > 0) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          this.x += (dx / dist) * force * 2;
+          this.y += (dy / dist) * force * 2;
         }
       }
 
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        
-        // Adapt node color to theme
-        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-        ctx.fillStyle = isDark ? 'rgba(0, 242, 254, 0.4)' : 'rgba(2, 132, 199, 0.2)';
-        ctx.fill();
+      draw(isDark: boolean) {
+        ctx!.beginPath();
+        ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx!.fillStyle = isDark
+          ? 'rgba(0, 255, 135, 0.45)'
+          : 'rgba(2, 132, 199, 0.25)';
+        ctx!.fill();
       }
     }
 
     const initParticles = () => {
-      particles = [];
-      const particleDensity = window.innerWidth < 768 ? 40 : 100;
-      for (let i = 0; i < particleDensity; i++) {
-        particles.push(new Particle());
-      }
+      const count = window.innerWidth < 768 ? 45 : 90;
+      particles = Array.from({ length: count }, () => new Particle());
     };
 
-    const drawConnections = () => {
-      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-      const maxDistance = 120;
-
+    // ── draw connections between close particles ─────
+    const drawConnections = (isDark: boolean) => {
+      const maxDist = 110;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const distance = Math.hypot(dx, dy);
-
-          if (distance < maxDistance) {
-            const alpha = (maxDistance - distance) / maxDistance * 0.15;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            
-            // Neon cyan in dark mode, blue/purple in light mode
-            ctx.strokeStyle = isDark 
-              ? `rgba(0, 242, 254, ${alpha})` 
-              : `rgba(124, 58, 237, ${alpha})`;
-              
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
+          const dist = Math.hypot(dx, dy);
+          if (dist < maxDist) {
+            const alpha = ((maxDist - dist) / maxDist) * 0.12;
+            ctx!.beginPath();
+            ctx!.moveTo(particles[i].x, particles[i].y);
+            ctx!.lineTo(particles[j].x, particles[j].y);
+            ctx!.strokeStyle = isDark
+              ? `rgba(0, 255, 135, ${alpha})`
+              : `rgba(4, 120, 87, ${alpha})`;
+            ctx!.lineWidth = 0.7;
+            ctx!.stroke();
           }
         }
       }
     };
 
+    // ── main render loop ─────────────────────────────
     const animate = () => {
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-
-      drawConnections();
-      animationFrameId = requestAnimationFrame(animate);
+      particles.forEach(p => { p.update(); p.draw(isDark); });
+      drawConnections(isDark);
+      animId = requestAnimationFrame(animate);
     };
 
-    // Listeners
-    window.addEventListener('resize', resizeCanvas);
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
-
-    // Initial load
-    resizeCanvas();
+    // ── bootstrap ────────────────────────────────────
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
     animate();
 
+    window.addEventListener('resize',     onResize,     { passive: true });
+    window.addEventListener('mousemove',  onMouseMove,  { passive: true });
+    window.addEventListener('mouseleave', onMouseLeave);
+
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animId);
+      clearTimeout(resizeTimer);
+      window.removeEventListener('resize',     onResize);
+      window.removeEventListener('mousemove',  onMouseMove);
+      window.removeEventListener('mouseleave', onMouseLeave);
     };
   }, []);
 

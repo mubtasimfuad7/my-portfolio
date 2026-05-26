@@ -1,54 +1,65 @@
+/* GPU-accelerated custom cursor — uses only transform/opacity */
+
 .custom-cursor-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background-color: var(--accent-cyan);
   border-radius: 50%;
   position: fixed;
-  transform: translate(-50%, -50%);
+  /* offset so (0,0) is the hot-spot center */
+  transform: translate(-50%, -50%) scale(1);
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.15s ease-out, background-color 0.3s ease;
+  will-change: transform;
+  transition: transform 0.12s var(--ease-out-expo),
+              background-color 0.25s ease,
+              opacity 0.25s ease;
 }
 
 .custom-cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--accent-purple);
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(5, 150, 105, 0.7);
   border-radius: 50%;
   position: fixed;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   pointer-events: none;
   z-index: 9998;
-  box-shadow: 0 0 10px rgba(157, 78, 221, 0.2);
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+  will-change: transform;
+  box-shadow: 0 0 12px rgba(5, 150, 105, 0.15);
+  /* Only animate transform + opacity for zero-jank */
+  transition: width  0.28s var(--ease-out-expo),
+              height 0.28s var(--ease-out-expo),
+              border-color 0.28s ease,
+              background-color 0.28s ease,
+              box-shadow 0.28s ease,
+              opacity 0.28s ease;
 }
 
-/* Hovering state */
+/* ── Hovering interactive element ── */
 .custom-cursor-dot.hovered {
   transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
 }
 
 .custom-cursor-ring.hovered {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-color: var(--accent-cyan);
-  background-color: rgba(0, 242, 254, 0.08);
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  background-color: rgba(0, 255, 135, 0.07);
+  box-shadow: 0 0 20px rgba(0, 255, 135, 0.3);
 }
 
-/* Clicking state */
+/* ── Clicking ── */
 .custom-cursor-dot.clicking {
-  transform: translate(-50%, -50%) scale(0.6);
+  transform: translate(-50%, -50%) scale(0.55);
+  background-color: var(--accent-purple);
 }
 
 .custom-cursor-ring.clicking {
-  width: 24px;
-  height: 24px;
-  background-color: rgba(157, 78, 221, 0.15);
+  width: 22px;
+  height: 22px;
   border-color: var(--accent-purple);
-  box-shadow: 0 0 8px rgba(157, 78, 221, 0.5);
+  background-color: rgba(5, 150, 105, 0.12);
+  box-shadow: 0 0 10px rgba(5, 150, 105, 0.4);
 }

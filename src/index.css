@@ -1,58 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
-/* CSS Variables for Premium Design System */
+/* ============================================================
+   PREMIUM DESIGN SYSTEM — CSS VARIABLES
+   ============================================================ */
 :root {
-  /* Fonts */
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Global Animations Setup */
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-elastic: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  /* Easing curves — use GPU-friendly properties only (transform/opacity) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Dark Theme Variables (Default) */
-  --bg-primary: #05060f;
-  --bg-secondary: #0b0c16;
-  --bg-card: rgba(18, 20, 38, 0.45);
-  --bg-card-hover: rgba(26, 29, 54, 0.7);
-  --text-primary: #f3f4f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-  
-  --accent-cyan: #00f2fe;
-  --accent-purple: #9d4edd;
-  --accent-glow: rgba(0, 242, 254, 0.15);
-  --accent-gradient: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-  
-  --border-color: rgba(255, 255, 255, 0.07);
-  --border-color-hover: rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --card-glow-intensity: 20px;
+  --transition-smooth: all 0.4s var(--ease-out-expo);
+  --transition-fast:   all 0.2s var(--ease-out-expo);
+
+  /* ── Dark Theme (default) ── */
+  --bg-primary:       #05060f;
+  --bg-secondary:     #080a18;
+  --bg-card:          rgba(14, 16, 35, 0.6);
+  --bg-card-hover:    rgba(22, 25, 52, 0.85);
+
+  --text-primary:     #f0f2ff;
+  --text-secondary:   #8b92b8;
+  --text-muted:       #555d82;
+
+  --accent-cyan:      #00ff87;
+  --accent-purple:    #059669;
+  --accent-pink:      #34d399;
+  --accent-glow:      rgba(0, 255, 135, 0.18);
+  --accent-gradient:  linear-gradient(135deg, #00ff87 0%, #059669 100%);
+
+  --border-color:       rgba(255, 255, 255, 0.06);
+  --border-color-hover: rgba(255, 255, 255, 0.14);
+  --glass-shadow:       0 8px 40px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255,255,255,0.04) inset;
+  --card-shadow-hover:  0 20px 60px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255,255,255,0.06) inset;
 }
 
-/* Light Theme Variables overrides */
+/* ── Light Theme overrides ── */
 [data-theme='light'] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --bg-card: rgba(255, 255, 255, 0.75);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  
-  --accent-cyan: #0284c7;
-  --accent-purple: #7c3aed;
-  --accent-glow: rgba(2, 132, 199, 0.12);
-  
-  --border-color: rgba(0, 0, 0, 0.06);
-  --border-color-hover: rgba(0, 0, 0, 0.12);
-  --glass-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15);
-  --card-glow-intensity: 15px;
+  --bg-primary:     #f6f8ff;
+  --bg-secondary:   #eef1fb;
+  --bg-card:        rgba(255, 255, 255, 0.8);
+  --bg-card-hover:  rgba(255, 255, 255, 0.98);
+
+  --text-primary:   #0c0f1e;
+  --text-secondary: #4a5070;
+  --text-muted:     #8b92b8;
+
+  --accent-cyan:    #10b981;
+  --accent-purple:  #047857;
+  --accent-glow:    rgba(16, 185, 129, 0.12);
+
+  --border-color:       rgba(0, 0, 0, 0.07);
+  --border-color-hover: rgba(0, 0, 0, 0.14);
+  --glass-shadow:       0 8px 32px rgba(100, 116, 180, 0.12);
+  --card-shadow-hover:  0 20px 50px rgba(100, 116, 180, 0.2);
 }
 
-/* Reset & Global Styles */
-* {
+/* ============================================================
+   GLOBAL RESET
+   ============================================================ */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -61,7 +70,9 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--accent-purple) var(--bg-primary);
+  scrollbar-color: var(--accent-purple) transparent;
+  /* Prevent layout shift from scrollbar appearing */
+  overflow-y: scroll;
 }
 
 body {
@@ -69,7 +80,10 @@ body {
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -77,7 +91,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 a {
@@ -86,53 +101,62 @@ a {
   transition: var(--transition-fast);
 }
 
-/* Scrollbar Customization */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--accent-purple), var(--accent-cyan));
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan);
+button {
+  cursor: pointer;
+  font-family: inherit;
 }
 
-/* Container */
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
 .container {
-  max-width: 1200px;
+  max-width: 1160px;
   margin: 0 auto;
   padding: 0 2rem;
   position: relative;
   z-index: 2;
 }
-
 @media (max-width: 640px) {
-  .container {
-    padding: 0 1.25rem;
-  }
+  .container { padding: 0 1.25rem; }
 }
 
-/* Glassmorphism styling */
+/* ============================================================
+   GLASSMORPHISM
+   ============================================================ */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   box-shadow: var(--glass-shadow);
-  border-radius: 16px;
-  transition: var(--transition-smooth);
+  border-radius: 18px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
-
 .glass-panel:hover {
   border-color: var(--border-color-hover);
   background: var(--bg-card-hover);
+  box-shadow: var(--card-shadow-hover);
 }
 
-/* Gradient Text */
+/* ============================================================
+   GRADIENT TEXT
+   ============================================================ */
 .gradient-text {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
@@ -141,35 +165,53 @@ a {
   display: inline-block;
 }
 
-/* Section Header */
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
 .section-header {
   margin-bottom: 4rem;
   text-align: center;
 }
 
 .section-subtitle {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   color: var(--accent-cyan);
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
   display: block;
 }
 
 .section-title {
-  font-size: 2.75rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 800;
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 
-/* Scroll Reveal base styles */
+/* Thin underline accent on section titles */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--accent-gradient);
+}
+
+/* ============================================================
+   SCROLL REVEAL — GPU-ACCELERATED (opacity + transform ONLY)
+   ============================================================ */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(28px);
+  will-change: opacity, transform;
+  transition: opacity 0.75s var(--ease-out-expo),
+              transform 0.75s var(--ease-out-expo);
 }
 
 .reveal-on-scroll.revealed {
@@ -177,7 +219,16 @@ a {
   transform: translateY(0);
 }
 
-/* Glowing Border effect */
+/* Stagger helper classes */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+/* ============================================================
+   GLOW BORDER (rotating conic-gradient on hover)
+   ============================================================ */
 .glow-border-trigger {
   position: relative;
   overflow: hidden;
@@ -191,37 +242,69 @@ a {
   width: 200%;
   height: 200%;
   background: conic-gradient(
-    transparent, 
-    var(--accent-cyan), 
-    transparent 30%, 
-    transparent 50%, 
-    var(--accent-purple), 
-    transparent 80%
+    transparent 0deg,
+    var(--accent-cyan) 60deg,
+    transparent 120deg,
+    transparent 240deg,
+    var(--accent-purple) 300deg,
+    transparent 360deg
   );
-  animation: spin 6s linear infinite;
+  animation: spin 8s linear infinite;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
 }
 
 .glow-border-trigger:hover::before {
   opacity: 1;
 }
 
-/* Spin Animation */
+/* ============================================================
+   KEYFRAME ANIMATIONS — GPU-SAFE (transform/opacity only)
+   ============================================================ */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Float Animation */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70%  { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9); }
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ============================================================
+   REDUCED MOTION — respect user system preference
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+  }
 }

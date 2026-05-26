@@ -1,61 +1,65 @@
 .skills-section {
-  padding: 8rem 0;
+  padding: 7rem 0;
   position: relative;
   background-color: var(--bg-primary);
 }
 
-/* Tabs */
+/* ── Filter tabs ── */
 .skills-tabs {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 4rem;
+  gap: 0.75rem;
+  margin-bottom: 3.5rem;
 }
 
 .skills-tab-btn {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  padding: 0.6rem 1.5rem;
+  padding: 0.5rem 1.35rem;
   border-radius: 9999px;
   font-family: var(--font-heading);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  transition: var(--transition-smooth);
+  transition: border-color 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.25s var(--ease-spring);
+  will-change: transform;
 }
-
 .skills-tab-btn:hover {
   border-color: var(--border-color-hover);
   color: var(--text-primary);
+  transform: translateY(-2px);
 }
-
 .skills-tab-btn.active {
   background: var(--accent-gradient);
-  color: #05060f;
+  color: #03040e;
   border-color: transparent;
-  box-shadow: 0 4px 15px var(--accent-glow);
+  box-shadow: 0 4px 18px var(--accent-glow);
   font-weight: 700;
 }
 
-/* Skills Grid */
+/* ── Skills grid ── */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+  gap: 1.25rem;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(22px);
+  transition: opacity 0.7s var(--ease-out-expo),
+              transform 0.7s var(--ease-out-expo);
+  will-change: opacity, transform;
 }
-
 .skills-grid.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Skill Card */
+/* ── Skill card ── */
 .skill-card {
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,60 +67,60 @@
   border-radius: 16px;
   position: relative;
   overflow: hidden;
-  animation: skill-card-entrance 0.5s ease forwards;
   opacity: 0;
+  animation: skill-in 0.45s var(--ease-out-expo) forwards;
+  transition: border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.3s var(--ease-spring);
+  will-change: transform;
 }
-
-@keyframes skill-card-entrance {
-  0% { opacity: 0; transform: translateY(15px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 .skill-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--skill-glow);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
-              0 0 var(--card-glow-intensity) var(--skill-glow);
+  transform: translateY(-6px) scale(1.02);
+  border-color: var(--skill-glow, var(--accent-cyan));
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3),
+              0 0 20px var(--skill-glow, var(--accent-glow));
 }
 
-.skill-icon-wrapper {
-  margin-bottom: 1.25rem;
+@keyframes skill-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
 }
+
+.skill-icon-wrapper { margin-bottom: 1rem; }
 
 .skill-avatar {
-  width: 54px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.03);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--accent-cyan);
-  transition: var(--transition-fast);
+  transition: background 0.25s ease, transform 0.25s var(--ease-spring);
+  will-change: transform;
 }
-
 .skill-card:hover .skill-avatar {
-  background: var(--skill-glow);
+  background: var(--skill-glow, rgba(0, 255, 135,0.15));
   color: var(--text-primary);
   border-color: transparent;
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .skill-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
-
 .skill-category-badge {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
   font-weight: 500;
 }
